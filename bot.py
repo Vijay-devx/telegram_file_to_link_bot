@@ -54,7 +54,18 @@ async def handle_new_message(event):
         expires_at=expires_at
     )
 
-    download_link = f"{settings.base_url.rstrip('/')}/d/{token}"
+    import os
+    # Build dynamic domain URL
+    domain = settings.domain or os.getenv("DOMAIN") or os.getenv("RENDER_EXTERNAL_URL") or settings.base_url
+    if not domain.startswith("http://") and not domain.startswith("https://"):
+        if "localhost" in domain or "127.0.0.1" in domain:
+            base_url_str = f"http://{domain.strip('/')}"
+        else:
+            base_url_str = f"https://{domain.strip('/')}"
+    else:
+        base_url_str = domain.rstrip('/')
+
+    download_link = f"{base_url_str}/d/{token}"
     
     await event.reply(
         f"**File Link Generated:**\n\n"

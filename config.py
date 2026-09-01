@@ -6,6 +6,7 @@ class Settings(BaseSettings):
     api_hash: str
     bot_token: str
     base_url: str = "http://localhost:8000"
+    domain: str | None = None
     db_path: str = "sqlite.db"
     link_ttl_hours: int = 3
     

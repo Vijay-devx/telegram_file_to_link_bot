@@ -79,7 +79,9 @@ async def stream_file(location: InputDocumentFileLocation, start: int, end: int)
     
     logger.info(f"Starting stream for document {location.id}, start={start}, end={end}")
     try:
-        async for chunk in web_client.iter_download(location, offset=start):
+        # request_size=1048576 (1MB) is the max allowed by Telegram. This maximizes throughput
+        # and reduces the number of RPC calls, significantly lowering CPU overhead on Render.
+        async for chunk in web_client.iter_download(location, offset=start, request_size=1048576):
             remaining = bytes_to_read - bytes_read
             if len(chunk) > remaining:
                 yield chunk[:remaining]

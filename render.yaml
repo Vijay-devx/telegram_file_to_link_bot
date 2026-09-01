@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: telegram-file-proxy
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: bash start.sh
+    envVars:
+      - key: BOT_TOKEN
+        sync: false
+      - key: API_ID
+        sync: false
+      - key: API_HASH
+        sync: false
+      - key: BASE_URL
+        sync: false
+      - key: LINK_TTL_HOURS
+        value: 3

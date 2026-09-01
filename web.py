@@ -25,6 +25,10 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
+@app.get("/")
+async def health_check():
+    return {"status": "alive", "message": "Telegram Proxy is running."}
+
 def parse_range_header(range_header: str, file_size: int):
     """
     Parses the Range header and returns a tuple of (start, end).

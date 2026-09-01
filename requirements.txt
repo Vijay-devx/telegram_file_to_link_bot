@@ -1,0 +1,7 @@
+telethon
+fastapi
+uvicorn
+aiosqlite
+pydantic-settings
+python-dotenv
+cryptography
